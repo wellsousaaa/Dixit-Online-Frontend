@@ -1,0 +1,111 @@
+aside {
+    display: flex;
+    padding-left: 25px;
+    height: 95vh;
+    padding-right: 30px;
+
+    flex-direction: column;
+    align-items: center;
+}
+
+.close-btn {
+    color: white;
+    float: left;
+    display: none;
+}
+
+.pointer:hover {
+    cursor: pointer;
+}
+
+section {
+    margin-left: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    width: 75vw;
+}
+
+.players {
+    font-size: 10pt;
+    max-height: 50vh;
+    float: right;
+    padding: 10px;
+    background-color: rgb(0, 0, 0, 0.1);
+    position: absolute;
+    margin-left: 79vw;
+}
+
+.myCard {
+    border-radius: 25px;
+    box-shadow: rgb(0, 0, 0, 0.2) 5px 5px;
+    margin: 10px 10px;
+    max-width: 150px;
+}
+
+.myCard::after {
+    width: 100px;
+    height: 100px;
+    background-color: green;
+}
+
+.float {
+    display: none;
+}
+
+@media only screen and (min-width: 901px) {
+    .players {
+        margin-left: 88vw;
+    }
+    aside {
+        max-width: 30vw;
+        display: unset !important;
+    }
+    .close {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 900px) {
+    section {
+        margin-top: 25px;
+        align-items: center;
+    }
+    .myCard {
+        max-width: 100px;
+        box-shadow: 12px black;
+    }
+
+    .centralize-mobile {
+        text-align: center;
+        margin-top: 30vh !important;
+    }
+
+    .float {
+        margin-left: 25px;
+        display: unset;
+        position: absolute;
+        float: left;
+    }
+
+    aside {
+        height: 100%;
+        width: 90vw;
+        position: fixed;
+        text-align: center !important;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        background-color: #e65629;
+        overflow-x: hidden;
+        transition: 0.5s;
+        padding-top: 60px;
+    }
+}
+
+@media screen and (max-height: 450px) {
+    aside {
+        width: 200px;
+    }
+}
