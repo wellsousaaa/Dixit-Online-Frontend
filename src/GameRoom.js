@@ -28,7 +28,7 @@ const GameRoom = (props) => {
     const modalRef = useRef();
 
     useEffect(() => {
-        const currentSocket = socketIOClient(ENDPOINT, {transports: ['websocket', 'polling', 'flashsocket']});
+        const currentSocket = socketIOClient(ENDPOINT, {transports: ['polling']});
         setSocket(currentSocket);
 
         currentSocket.emit("connect-room", { ...props });
