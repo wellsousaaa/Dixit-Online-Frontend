@@ -1,18 +1,105 @@
+@keyframes card-up {
+    0% {
+        opacity: 0;
+        transform: translateY(30%) scaleX(0);
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes gradient {
+    0% {
+    }
+    50% {
+        opacity: 1;
+        top: -30%;
+        left: -30%;
+    }
+    100% {
+        background: rgba(0, 0, 0, 0);
+    }
+}
+
+.myCard {
+    position: relative;
+    overflow: hidden;
+    border-radius: 15px;
+    margin: 10px 10px;
+    max-width: 150px;
+    width: 150px;
+    height: 220px;
+    background-size: contain;
+    background-image: var(--image-background);
+    background-color: #8f0a32;
+
+    animation: 600ms card-up cubic-bezier(0.175, 0.885, 0.32, 1.175);
+}
+
+.myCard:hover > .myCard::after {
+    animation: gradient 2.5s;
+}
+
+.myCard:after {
+    border-radius: 15px;
+    content: "";
+    position: absolute;
+    top: -110%;
+    left: -210%;
+    width: 200%;
+    height: 200%;
+    opacity: 0;
+    transform: rotate(30deg);
+
+    background: linear-gradient(
+        to right,
+        transparent 10%,
+        transparent 80%,
+        rgba(255, 255, 255, 0.5) 100%,
+        transparent 80%
+    );
+
+    transition-property: all;
+    transition-duration: 0.7s, 0.7s, 0.15s;
+    transition-timing-function: ease;
+
+    animation: gradient 2.5s;
+}
+
+.card-container {
+    overflow: hidden;
+    text-align: left;
+    transition: all 200ms;
+}
+
+.card-container:hover {
+    cursor: pointer;
+    transform: translateY(-4%);
+}
+
+.card-container:hover .myCard {
+    transition: all 200ms;
+    filter: drop-shadow(0px 8px 0px rgba(0, 0, 0, 0.3));
+}
+
 .card-input {
+    z-index: 99;
     cursor: pointer;
     width: 35px;
     height: 35px;
-    border-radius: 100%;
+    border-radius: 25%;
     outline: none;
     border: none;
     position: absolute;
-    color: #0c5e5b;
+    color: hsl(178, 77%, 21%);
     font-size: 14pt;
     font-weight: bolder;
-    background-color: #0e918c;
+    background-color: #b3fffc;
 }
 
 .card-input-vote {
+    z-index: 1;
     cursor: pointer;
     width: 70px;
     height: 35px;

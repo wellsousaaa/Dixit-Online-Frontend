@@ -4,7 +4,7 @@ import React, {
     forwardRef,
     useRef,
 } from "react";
-import { getImage } from "../Functions";
+import { getImage } from "./Functions";
 
 const MainSection = forwardRef((props, ref) => {
     /// REFS
@@ -87,7 +87,7 @@ const MainSection = forwardRef((props, ref) => {
                 {moderator ? (
                     <div
                         className="flex center column centralize-mobile"
-                        style={{ marginLeft: "9vw" }}
+                        style={{ marginLeft: "1vw" }}
                     >
                         <h3> O jogo ainda não começou, deseja começar?</h3>
                         <h1
@@ -101,7 +101,7 @@ const MainSection = forwardRef((props, ref) => {
                 ) : !moderator ? (
                     <div
                         className="flex center column centralize-mobile"
-                        style={{ marginLeft: "15vw" }}
+                        style={{ marginLeft: "1vw" }}
                     >
                         <h3> O jogo ainda não começou </h3>
                     </div>

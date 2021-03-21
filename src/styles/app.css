@@ -1,8 +1,63 @@
+@import url("https://fonts.googleapis.com/css2?family=IM+Fell+French+Canon:ital@1&display=swap");
+
+@keyframes unmount {
+    0% {
+        height: 100vh;
+    }
+    100% {
+        height: 0px;
+    }
+}
+
+@keyframes card-icon-animation {
+    0% {
+        transform: scaleX(0);
+    }
+    25% {
+        transform: scaleX(100%);
+    }
+    50% {
+        transform: scaleX(0%);
+    }
+    75% {
+        transform: scaleX(-100%);
+    }
+}
+
+.unmounting {
+    overflow: hidden !important;
+    animation: unmount 1s forwards;
+}
+
+.mounting {
+    overflow: hidden !important;
+    animation: unmount 800ms reverse ease-in-out;
+}
+
+.unmounted {
+    overflow: hidden !important;
+    height: 0px !important;
+}
+
+.card-icon {
+    width: 15px;
+    animation: card-icon-animation 800ms infinite alternate;
+}
+
 body {
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
-    background-color: #132743;
     color: #f8efd4;
+    background-color: rgb(0, 18, 44);
+    background-image: url("https://igrejas.mmcontabilidade.com.br/images/wait.gif");
+    background-position: center center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+}
+
+.title {
+    font-family: "IM Fell French Canon", serif;
+    font-size: 58pt;
 }
 
 h1 {
@@ -14,16 +69,33 @@ h3 {
 }
 
 .home {
-    margin-top: 8vw;
+    width: 100vw;
+    height: 100vh;
+    background-image: url("https://thumbs.gfycat.com/BadRelievedCowbird-size_restricted.gif");
+    background-size: 100% 100%;
+}
+
+.home div {
+    width: 100vw;
+    height: 100vh;
+
+    background-color: rgba(0, 28, 68, 0.8);
 }
 
 .box-input {
+    font-family: inherit;
+    transition: transform 250ms ease-in-out, filter 100ms;
     outline: none;
     border: none;
     padding: 10px;
-    border-radius: 25px;
-    margin-top: 10px;
+    border-radius: 10px;
+    margin-top: 15px;
     margin-bottom: 25px;
+}
+
+.box-input:focus {
+    transform: translateY(-5px);
+    filter: drop-shadow(0px 5px 0px rgba(0, 0, 0, 0.3));
 }
 
 .wrap {
@@ -32,8 +104,14 @@ h3 {
 
 .box-input[type="submit"] {
     background-color: #d7385e;
-    border: 2px solid #8f0a32;
+    padding: 11px;
     color: white;
+    font-size: 10.5pt;
+}
+
+.box-input[type="submit"]:hover {
+    transform: translateY(-5px);
+    filter: drop-shadow(0px 5px 0px #8f0a32);
 }
 
 .flex {
@@ -47,6 +125,15 @@ footer {
     left: 0px;
     right: 0px;
     margin-bottom: 0px;
+}
+
+.unmounting footer {
+    display: none;
+}
+
+.footer-content {
+    font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
+        sans-serif;
 }
 
 .center {

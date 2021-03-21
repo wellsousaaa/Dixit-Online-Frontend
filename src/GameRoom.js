@@ -8,8 +8,9 @@ import Modal from "./components/Modal";
 
 import socketIOClient from "socket.io-client";
 import "./styles/game.css";
+import { Redirect } from "react-router-dom";
 
-const ENDPOINT = "https://dixitbackend.herokuapp.com/";
+const ENDPOINT = process.env.ENDPOINT;
 
 const GameRoom = (props) => {
     const { username, code } = props;
@@ -28,67 +29,84 @@ const GameRoom = (props) => {
     const modalRef = useRef();
 
     useEffect(() => {
-        const currentSocket = socketIOClient(ENDPOINT, {transports: ['polling']});
-        setSocket(currentSocket);
-
-        currentSocket.emit("connect-room", { ...props });
-
-        currentSocket.on("force-disconnect", () => {
-            window.alert("O jogo já começou nessa sala!");
-            props.setReady(false);
-        });
-
-        currentSocket.on("update-players", (players) => {
-            playersRef.current.updatePlayers(players);
-        });
-
-        currentSocket.on("auth-mod", (mod) => {
-            setModerator(mod);
-        });
-
-        currentSocket.on("update-cards", (cards) => {
-            setGameState("playing");
-            cardsRef.current.updateCards(cards);
-        });
-
-        currentSocket.on("next-round", (playersPoints) => {
-            modalRef.current.changePoints(playersPoints);
-            setTimeout(() => {
-                currentSocket.emit("can-proceed");
-            }, 1000);
-
-            gameRef.current.cleanEverything();
-        });
-
-        currentSocket.on("update-turn", (type, data) => {
-            if (type === 1) {
-                gameRef.current.changeFortuneTeller(data);
-            } else if (type === 1.5) {
-                gameRef.current.myTurn(data);
-            } else if (type === 2) {
-                setCanSend(true);
-                gameRef.current.changeMessage(data);
-            } else if (type === 3) {
-                setCanSend(false);
-                gameRef.current.showCards(data);
-            } else if (type === 4) {
-                gameRef.current.showVotes(data);
+        const fetchData = async () => {
+            try {
+                const currentSocket = socketIOClient(ENDPOINT);
+                setSocket(currentSocket);
+            } catch (err) {
+                setSocket(false);
             }
-        });
-
-        currentSocket.on("get-card", (cardNumber) => {
-            cardsRef.current.addCard(cardNumber);
-        });
-
-        currentSocket.on("game-over", (winner) => {
-            modalRef.current.setGameOver(winner);
-            gameRef.current.cleanEverything();
-            setGameState("waiting");
-        });
-        return () => {
-            currentSocket.disconnect();
         };
+
+        if (localStorage.getItem("code") && localStorage.getItem("username"))
+            fetchData();
     }, []);
+
+    useEffect(() => {
+        if (socket) {
+            socket.emit("connect-room", {
+                code: localStorage.getItem("code"),
+                username: localStorage.getItem("username"),
+            });
+
+            socket.on("force-disconnect", () => {
+                window.alert("O jogo já começou nessa sala!");
+                props.setReady(false);
+            });
+
+            socket.on("update-players", (players) => {
+                console.log(players);
+                playersRef.current.updatePlayers(players);
+            });
+
+            socket.on("auth-mod", (mod) => {
+                setModerator(mod);
+            });
+
+            socket.on("update-cards", (cards) => {
+                setGameState("playing");
+                cardsRef.current.updateCards(cards);
+            });
+
+            socket.on("next-round", (playersPoints) => {
+                modalRef.current.changePoints(playersPoints);
+                setTimeout(() => {
+                    socket.emit("can-proceed");
+                }, 1000);
+
+                gameRef.current.cleanEverything();
+            });
+
+            socket.on("update-turn", (type, data) => {
+                if (type === 1) {
+                    gameRef.current.changeFortuneTeller(data);
+                } else if (type === 1.5) {
+                    gameRef.current.myTurn(data);
+                } else if (type === 2) {
+                    setCanSend(true);
+                    gameRef.current.changeMessage(data);
+                } else if (type === 3) {
+                    setCanSend(false);
+                    gameRef.current.showCards(data);
+                } else if (type === 4) {
+                    gameRef.current.showVotes(data);
+                }
+            });
+
+            socket.on("get-card", (cardNumber) => {
+                cardsRef.current.addCard(cardNumber);
+            });
+
+            socket.on("game-over", (winner) => {
+                modalRef.current.setGameOver(winner);
+                gameRef.current.cleanEverything();
+                setGameState("waiting");
+            });
+            return () => {
+                socket.disconnect();
+            };
+        }
+    }, [socket]);
 
     function startGame() {
         socket.emit("start-game");
@@ -114,27 +132,36 @@ const GameRoom = (props) => {
         cardsRef.current.removeCard(index);
     };
 
+    if (!(localStorage.getItem("code") && localStorage.getItem("username")))
+        return <Redirect to="/" />;
+
     return (
-        <div className="game-room flex">
-            <Modal ref={modalRef} points={points} />
-            <MyCards
-                ref={cardsRef}
-                gameState={gameState}
-                handleCardSubmit={handleCardSubmit}
-                canSend={canSend}
-            />
+        <div className="game-room mounting flex">
+            {socket ? (
+                <div className="game-container flex">
+                    <Modal ref={modalRef} points={points} />
+                    <MyCards
+                        ref={cardsRef}
+                        gameState={gameState}
+                        handleCardSubmit={handleCardSubmit}
+                        canSend={canSend}
+                    />
 
-            <MainSection
-                ref={gameRef}
-                moderator={moderator}
-                gameState={gameState}
-                startGame={startGame}
-                sendDescription={sendDescription}
-                voteCard={voteCard}
-                nextTurn={nextTurn}
-            />
+                    <MainSection
+                        ref={gameRef}
+                        moderator={moderator}
+                        gameState={gameState}
+                        startGame={startGame}
+                        sendDescription={sendDescription}
+                        voteCard={voteCard}
+                        nextTurn={nextTurn}
+                    />
 
-            <PlayersList ref={playersRef} />
+                    <PlayersList ref={playersRef} />
+                </div>
+            ) : (
+                <h1>AAAAAAAAAAAAA</h1>
+            )}
         </div>
     );
 };

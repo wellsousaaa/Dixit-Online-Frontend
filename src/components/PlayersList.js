@@ -11,11 +11,11 @@ const PlayersList = forwardRef((props, ref) => {
 
     return (
         <div className="players" style={{ float: "right" }}>
-            {Players.map((player) => (
+            {/* {Players.map((player) => (
                 <>
                     <p>{player.substring(0, 10)}</p>
                 </>
-            ))}
+            ))} */}
         </div>
     );
 });

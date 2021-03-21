@@ -1,6 +1,24 @@
+.game-room {
+    width: 100vw;
+    height: 100vh;
+    /* background-image: url("https://thumbs.gfycat.com/HeavySoupyDuckbillcat-size_restricted.gif"); */
+    /* background-image: url("https://i.makeagif.com/media/8-29-2017/BoktV9.gif"); */
+    background-image: url("https://thumbs.gfycat.com/AcidicAmusingBobwhite-max-14mb.gif");
+    /* background-image: url("https://thumbs.gfycat.com/ImpureSpeedyBumblebee-size_restricted.gif"); */
+    /* background-image: url("https://webcomicms.net/sites/default/files/clipart/154518/free-moving-pictures-154518-5878976.gif"); */
+    background-size: 100vw 100vh;
+    image-rendering: pixelated;
+}
+
+.game-container {
+    background-color: rgba(0, 18, 44, 0.8);
+    /* backdrop-filter: blur(1px); */
+    width: 100vw;
+    height: 100vh;
+}
+
 aside {
     display: flex;
-    padding-left: 25px;
     height: 95vh;
     padding-right: 30px;
 
@@ -19,7 +37,7 @@ aside {
 }
 
 section {
-    margin-left: 50px;
+    margin: auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -37,19 +55,6 @@ section {
     margin-left: 79vw;
 }
 
-.myCard {
-    border-radius: 25px;
-    box-shadow: rgb(0, 0, 0, 0.2) 5px 5px;
-    margin: 10px 10px;
-    max-width: 150px;
-}
-
-.myCard::after {
-    width: 100px;
-    height: 100px;
-    background-color: green;
-}
-
 .float {
     display: none;
 }
@@ -59,7 +64,6 @@ section {
         margin-left: 88vw;
     }
     aside {
-        max-width: 30vw;
         display: unset !important;
     }
     .close {
@@ -69,12 +73,21 @@ section {
 
 @media only screen and (max-width: 900px) {
     section {
-        margin-top: 25px;
         align-items: center;
+        width: 90vw;
+        margin-top: 50px;
     }
-    .myCard {
-        max-width: 100px;
-        box-shadow: 12px black;
+    section .card-container {
+        width: 150px;
+        height: fit-content;
+    }
+    section .myCard {
+        width: 75%;
+        height: auto;
+    }
+    aside .myCard {
+        width: 175px;
+        background-repeat: no-repeat;
     }
 
     .centralize-mobile {
@@ -91,16 +104,16 @@ section {
 
     aside {
         height: 100%;
-        width: 90vw;
         position: fixed;
         text-align: center !important;
-        z-index: 1;
+        z-index: 2;
         top: 0;
         left: 0;
         background-color: #e65629;
         overflow-x: hidden;
         transition: 0.5s;
-        padding-top: 60px;
+        width: 100vw;
+        max-width: 100vw !important;
     }
 }
 
