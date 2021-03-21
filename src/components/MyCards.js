@@ -13,35 +13,6 @@ import "../styles/card.css";
 const MyCards = forwardRef((props, ref) => {
     const [Cards, setCards] = useState([]);
 
-    useEffect(() => {
-        setTimeout(() => {
-            setCards([
-                {
-                    number: 60,
-                    url:
-                        "https://firebasestorage.googleapis.com/v0/b/dixit-3ac0f.appspot.com/o/img60.png?alt=media&token=1adbb154-8b7f-47df-be85-52cc74f5660a",
-                },
-                {
-                    number: 85,
-                    url:
-                        "https://firebasestorage.googleapis.com/v0/b/dixit-3ac0f.appspot.com/o/img85.png?alt=media&token=449a364c-38f7-4697-99e3-f691fbd3d53b",
-                },
-                {
-                    number: 32,
-                    url:
-                        "https://firebasestorage.googleapis.com/v0/b/dixit-3ac0f.appspot.com/o/img32.png?alt=media&token=e98ad08d-9e60-4b78-9b0f-98c3bbbf29e1",
-                },
-                {
-                    number: 6,
-                    url:
-                        "https://firebasestorage.googleapis.com/v0/b/dixit-3ac0f.appspot.com/o/img6.png?alt=media&token=e44297e0-7819-45d7-a3ef-cff64d44515a",
-                },
-            ]);
-        }, 1000);
-    }, []);
-
-    useEffect(() => {}, [props.canSend]);
-
     useImperativeHandle(ref, () => ({
         updateCards(cardNumbers) {
             const newCards = getImage(cardNumbers);

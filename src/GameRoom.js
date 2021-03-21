@@ -10,7 +10,7 @@ import socketIOClient from "socket.io-client";
 import "./styles/game.css";
 import { Redirect } from "react-router-dom";
 
-const ENDPOINT = process.env.ENDPOINT;
+const ENDPOINT = process.env.REACT_APP_ENDPOINT;
 
 const GameRoom = (props) => {
     const { username, code } = props;
@@ -29,6 +29,7 @@ const GameRoom = (props) => {
     const modalRef = useRef();
 
     useEffect(() => {
+        console.log(ENDPOINT);
         const fetchData = async () => {
             try {
                 const currentSocket = socketIOClient(ENDPOINT);
@@ -55,7 +56,6 @@ const GameRoom = (props) => {
             });
 
             socket.on("update-players", (players) => {
-                console.log(players);
                 playersRef.current.updatePlayers(players);
             });
 

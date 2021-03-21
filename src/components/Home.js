@@ -23,7 +23,6 @@ function Home() {
     const { username, code, willPlay } = userInfo;
 
     const handleStart = (e) => {
-        console.log(code.length === 4);
         if (username.trim() !== "" && code.length === 4) {
             e.target.disabled = true;
             setUserInfo((user) => ({ ...user, willPlay: true }));
