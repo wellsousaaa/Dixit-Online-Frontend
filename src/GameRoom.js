@@ -29,7 +29,6 @@ const GameRoom = (props) => {
     const modalRef = useRef();
 
     useEffect(() => {
-        console.log(ENDPOINT);
         const fetchData = async () => {
             try {
                 const currentSocket = socketIOClient(ENDPOINT);
