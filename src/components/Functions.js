@@ -13,3 +13,5 @@ export function getImage(numbers) {
   });
   return result;
 }
+
+//fix
